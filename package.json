@@ -1,0 +1,37 @@
+{
+  "name": "docker-testing",
+  "version": "0.0.1",
+  "description": "Simple node.js app for container linking testing",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "nodemon ./src/index.js",
+    "test": "mocha",
+    "docker-init:start": "sudo docker run --name genesis-admin -d -p 3000:3000 ds3tomas/genesis-admin",
+    "docker:start": "sudo docker rm -f genesis-admin && sudo docker run --name genesis-admin -d -p 3000:3000 ds3tomas/genesis-admin",
+    "docker:build": "sudo docker build -t ds3tomas/genesis-admin . && sudo docker login -u ds3tomas && sudo docker push ds3tomas/genesis-admin",
+    "docker:stop": "sudo docker stop genesis-admin",
+    "docker:reload": "nodemon --exec 'sudo docker cp --follow-link . genesis-admin:/usr/src' ",
+    "docker:start-a": "sudo docker-compose up -d"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gvilarino/docker-testing.git"
+  },
+  "author": "gvilarino",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gvilarino/docker-testing/issues"
+  },
+  "homepage": "https://github.com/gvilarino/docker-testing#readme",
+  "dependencies": {
+    "consign": "^0.1.6",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "mongodb": "3.1.9",
+    "mongojs": "^2.6.0"
+  },
+  "devDependencies": {
+    "mocha": "5.2.0",
+    "nodemon": "^1.18.6"
+  }
+}

@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  serve:
+    image: ds3tomas/genesis-admin
+    container_name: genesis-admin
+    environment:
+      MONGO_URL: "mongodb://db:27017/dailyCashFlow"
+    depends_on:
+      - db
+    ports:
+      - "3031:3000"
+
+  front:
+    image: ds3tomas/genesis-front
+    container_name: genesis-front
+    ports:
+      - "3030:3000"
+
+  db:
+    image: mongo
